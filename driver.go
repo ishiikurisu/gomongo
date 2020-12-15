@@ -40,4 +40,19 @@ func Run(mongoUrl string) {
 	for _, v := range databases {
 		fmt.Printf("- %s\n", v)
 	}
+
+	// creating documents
+	database := client.Database("nacionalpagtest")
+	collection := database.Collection("clients")
+	result, err := collection.InsertOne(ctx, bson.D{
+		{Key: "name", Value: "Sponge Bob Square Pants"},
+		{Key: "phone_number", Value: "812345678"},
+		{Key: "email", Value: "spongebob@krusty.krab"},
+	})
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		fmt.Println("result:")
+		fmt.Printf("%#v\n", result)
+	}
 }
